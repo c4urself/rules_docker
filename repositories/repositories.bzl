@@ -93,10 +93,11 @@ def repositories():
 
     # Legacy Python binaries.
     if "puller" not in excludes:
-        git_repository(
+        http_file(
             name = "puller",
-            remote = "https://github.com/c4urself/containerregistry.git",
-            commit = "c05873486625d452f7dc36ce718e1310a65cd2f1",
+            executable = True,
+            sha256 = "8c82aa8e5f45a2294f0f4f1a2056c9caec6ad1b72d628425c56a497fe306bd60",
+            urls = ["http://archive.tubularlabs.net/misc/containerregistry/puller.par"],
         )
 
     if "importer" not in excludes:
@@ -197,23 +198,6 @@ py_library(
             strip_prefix = "oauth2client-4.0.0/oauth2client/",
             type = "tar.gz",
             urls = ["https://codeload.github.com/google/oauth2client/tar.gz/v4.0.0"],
-        )
-
-    # Used for parallel execution in containerregistry
-    if "concurrent" not in excludes:
-        # TODO(mattmoor): Is there a clean way to override?
-        http_archive(
-            name = "concurrent",
-            build_file_content = """
-py_library(
-   name = "concurrent",
-   srcs = glob(["**/*.py"]),
-   visibility = ["//visibility:public"]
-)""",
-            sha256 = "a7086ddf3c36203da7816f7e903ce43d042831f41a9705bc6b4206c574fcb765",
-            strip_prefix = "pythonfutures-3.0.5/concurrent/",
-            type = "tar.gz",
-            urls = ["https://codeload.github.com/agronholm/pythonfutures/tar.gz/3.0.5"],
         )
 
     # For packaging python tools.
