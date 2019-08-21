@@ -18,6 +18,7 @@ load(
     "http_archive",
     "http_file",
 )
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load(
     "@io_bazel_rules_docker//toolchains/docker:toolchain.bzl",
     _docker_toolchain_configure = "toolchain_configure",
