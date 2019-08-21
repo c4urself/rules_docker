@@ -110,12 +110,10 @@ def repositories():
         )
 
     if "containerregistry" not in excludes:
-        http_archive(
+        git_repository(
             name = "containerregistry",
-            sha256 = "a8cdf2452323e0fefa4edb01c08b2ec438c9fa3192bc9f408b89287598c12abc",
-            strip_prefix = "containerregistry-" + CONTAINERREGISTRY_RELEASE[1:],
-            urls = [("https://github.com/google/containerregistry/archive/" +
-                     CONTAINERREGISTRY_RELEASE + ".tar.gz")],
+            remote = "https://github.com/c4urself/containerregistry.git",
+            commit = "c05873486625d452f7dc36ce718e1310a65cd2f1",
         )
 
     # TODO(mattmoor): Remove all of this (copied from google/containerregistry)
@@ -198,6 +196,23 @@ py_library(
             strip_prefix = "oauth2client-4.0.0/oauth2client/",
             type = "tar.gz",
             urls = ["https://codeload.github.com/google/oauth2client/tar.gz/v4.0.0"],
+        )
+
+    # Used for parallel execution in containerregistry
+    if "concurrent" not in excludes:
+        # TODO(mattmoor): Is there a clean way to override?
+        http_archive(
+            name = "concurrent",
+            build_file_content = """
+py_library(
+   name = "concurrent",
+   srcs = glob(["**/*.py"]),
+   visibility = ["//visibility:public"]
+)""",
+            sha256 = "a7086ddf3c36203da7816f7e903ce43d042831f41a9705bc6b4206c574fcb765",
+            strip_prefix = "pythonfutures-3.0.5/concurrent/",
+            type = "tar.gz",
+            urls = ["https://codeload.github.com/agronholm/pythonfutures/tar.gz/3.0.5"],
         )
 
     # For packaging python tools.
