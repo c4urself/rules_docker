@@ -92,12 +92,10 @@ def repositories():
 
     # Legacy Python binaries.
     if "puller" not in excludes:
-        http_file(
+        git_repository(
             name = "puller",
-            executable = True,
-            sha256 = "75ffb6edfee4bfcfbccd7ebee641dd90b4e2f73c773a9cca04cd0ec849576624",
-            urls = [("https://storage.googleapis.com/containerregistry-releases/" +
-                     CONTAINERREGISTRY_RELEASE + "/puller.par")],
+            remote = "https://github.com/c4urself/containerregistry.git",
+            commit = "c05873486625d452f7dc36ce718e1310a65cd2f1",
         )
 
     if "importer" not in excludes:

@@ -94,7 +94,7 @@ _container_pull_attrs = {
     ),
     "_puller": attr.label(
         executable = True,
-        default = Label("@puller//file:downloaded"),
+        default = Label("@puller//:puller.par"),
         cfg = "host",
     ),
 }
