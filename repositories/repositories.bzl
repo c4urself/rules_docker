@@ -136,21 +136,24 @@ def repositories():
             urls = ["https://github.com/bazelbuild/rules_python/archive/9d68f24659e8ce8b736590ba1e4418af06ec2552.tar.gz"],
         )
 
-    if "httplib2" not in excludes:
+    if "httplib2_py2_3" not in excludes:
         # TODO(mattmoor): Is there a clean way to override?
         http_archive(
-            name = "httplib2",
+            name = "httplib2_py2_3",
             build_file_content = """
 py_library(
-   name = "httplib2",
-   srcs = glob(["**/*.py"]),
-   data = ["cacerts.txt"],
-   visibility = ["//visibility:public"]
+    name = "httplib2",
+    srcs = glob(["**/*.py"]),
+    data = [
+        "python2/httplib2/cacerts.txt",
+        "python3/httplib2/cacerts.txt",
+    ],
+visibility = ["//visibility:public"]
 )""",
-            sha256 = "2dcbd4f20e826d6405593df8c3d6b6e4e369d57586db3ec9bbba0f0e0cdc0916",
-            strip_prefix = "httplib2-0.12.1/python2/httplib2/",
+            sha256 = "d9f568c183d1230f271e9c60bd99f3f2b67637c3478c9068fea29f7cca3d911f",
+            strip_prefix = "httplib2-0.11.3",
             type = "tar.gz",
-            urls = ["https://codeload.github.com/httplib2/httplib2/tar.gz/v0.12.1"],
+            urls = ["https://codeload.github.com/httplib2/httplib2/tar.gz/v0.11.3"],
         )
 
     # Used by oauth2client
